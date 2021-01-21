@@ -42,40 +42,13 @@ def getItemsUsed(w,c):
 # w = list of item weight or cost
 # W = max weight or max cost for the knapsack
 def zeroOneKnapsack(profit, weight, total):
-    # c is the cost matrix
     n = profit.__len__()
-    #  set inital values to zero
     selection = np.zeros((n,total+1))
-    #the rows of the matrix are weights
-    #and the columns are items
-    #cell c[i,j] is the optimal profit
-    #for i items of cost j
-    print(weight)
-    #print(cost)
-    #for every item
     for i in range(0,n):
-        #for ever possible weight
         for j in range(0,total+1):
-            #if this weight can be added to this cell
-            #then add it if it is better than what we aready have
-
             if (weight[i] > j):
-				# this item is to large or heavy to add
-				# so we just keep what we aready have
-				
                 selection[i,j] = selection[i-1,j]
             else:
-				# we can add this item if it gives us more value
-				# than skipping it
-				
-				# c[i-1][j-w[i]] is the max profit for the remaining 
-				# weight after we add this item.
-				
-				# if we add the profit of this item to the max profit
-				# of the remaining weight and it is more than 
-				# adding nothing , then it't the new max profit
-				# if not just add nothing.
-				
                 selection[i,j] = np.maximum(selection[i-1,j],profit[i]+selection[i-1,j-np.int(weight[i])])
     return [selection[n-1,np.int(total)],getItemsUsed(weight,selection)]
 
